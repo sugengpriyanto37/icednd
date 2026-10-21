@@ -9,14 +9,14 @@ import { useCurrency } from '@/lib/CurrencyContext';
 
 export default function Confirmation() {
   const router = useRouter();
-  const { lastBooking } = useBooking();
+  const { lastBooking, ready } = useBooking();
   const { fmt } = useCurrency();
 
   useEffect(() => {
-    if (!lastBooking) router.push('/', { replace: true });
-  }, [lastBooking]);
+    if (ready && !lastBooking) router.push('/', { replace: true });
+  }, [lastBooking, ready, router]);
 
-  if (!lastBooking) return null;
+  if (!ready || !lastBooking) return null;
 
   const hotel = getHotel(lastBooking.hotelId);
   const pkg = lastBooking.packageId ? getPackage(lastBooking.packageId) : null;

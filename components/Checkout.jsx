@@ -5,10 +5,11 @@ import { Lock, ShieldCheck } from 'lucide-react';
 import { getHotel, getPackage, getActivity, prettyDate } from '@/data/catalog';
 import { useBooking } from '@/lib/BookingContext';
 import { useCurrency } from '@/lib/CurrencyContext';
+import { createBooking } from '@/app/actions/booking';
 
 export default function Checkout() {
   const router = useRouter();
-  const { draft, confirmBooking } = useBooking();
+  const { draft, confirmBooking, ready } = useBooking();
   const { fmt, code } = useCurrency();
   const submittedRef = useRef(false);
   const [snapshot] = useState(() => (draft ? { ...draft, activities: [...(draft.activities || [])] } : null));
@@ -18,10 +19,10 @@ export default function Checkout() {
   const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
-    if (!draft && !submittedRef.current) router.push('/hotels', { replace: true });
-  }, [draft]);
+    if (ready && !draft && !submittedRef.current) router.push('/hotels', { replace: true });
+  }, [draft, ready, router]);
 
-  if (!snapshot) return null;
+  if (!ready || !snapshot) return null;
 
   const hotel = getHotel(snapshot.hotelId);
   const pkg = snapshot.packageId ? getPackage(snapshot.packageId) : null;
@@ -30,7 +31,17 @@ export default function Checkout() {
 
   const set = (key) => (e) => setForm({ ...form, [key]: e.target.value });
 
-  const submit = (e) => {
+  const setCardNumber = (e) => {
+    const digits = e.target.value.replace(/\D/g, '').slice(0, 16);
+    setForm({ ...form, card: digits.replace(/(\d{4})(?=\d)/g, '$1 ') });
+  };
+
+  const setExpiry = (e) => {
+    const digits = e.target.value.replace(/\D/g, '').slice(0, 4);
+    setForm({ ...form, expiry: digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits });
+  };
+
+  const submit = async (e) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim()) return setError('Please enter your full name and email.');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) return setError('Please enter a valid email address.');
@@ -41,11 +52,28 @@ export default function Checkout() {
     if (!form.country.trim()) return setError('Please enter your billing country.');
     setError('');
     setProcessing(true);
-    setTimeout(() => {
+    try {
+      const savedBooking = await createBooking({
+        ...snapshot,
+        name: form.name.trim(),
+        email: form.email.trim(),
+        country: form.country.trim(),
+        currency: code,
+      });
       submittedRef.current = true;
-      confirmBooking({ name: form.name.trim(), email: form.email.trim(), cardLast4: digits.slice(-4) });
+      confirmBooking({
+        name: form.name.trim(),
+        email: form.email.trim(),
+        cardLast4: digits.slice(-4),
+        reference: savedBooking.reference,
+        total: savedBooking.total,
+        bookingId: savedBooking.id,
+      });
       router.push('/confirmation');
-    }, 1400);
+    } catch (bookingError) {
+      setProcessing(false);
+      setError(bookingError instanceof Error ? bookingError.message : 'We could not save your booking. Please try again.');
+    }
   };
 
   const timeline = [
@@ -70,31 +98,83 @@ export default function Checkout() {
           <form onSubmit={submit} className="rounded-3xl border border-white/10 bg-[#111622] p-6 sm:p-8">
             <h2 className="font-display text-2xl mb-6">Your details</h2>
             <div className="grid sm:grid-cols-2 gap-4">
-              <input className={inputCls} placeholder="Full name" value={form.name} onChange={set('name')} />
-              <input className={inputCls} placeholder="Email address" type="email" value={form.email} onChange={set('email')} />
+              <label className="space-y-2">
+                <span className="text-xs uppercase tracking-[0.16em] text-[#94A3B8]">Full name</span>
+                <input
+                  className={inputCls}
+                  placeholder="Your name"
+                  autoComplete="name"
+                  value={form.name}
+                  onChange={set('name')}
+                />
+              </label>
+              <label className="space-y-2">
+                <span className="text-xs uppercase tracking-[0.16em] text-[#94A3B8]">Email address</span>
+                <input
+                  className={inputCls}
+                  placeholder="you@example.com"
+                  type="email"
+                  autoComplete="email"
+                  value={form.email}
+                  onChange={set('email')}
+                />
+              </label>
             </div>
 
             <h2 className="font-display text-2xl mt-10 mb-2 flex items-center gap-3">
-              Payment <span className="text-[11px] font-body uppercase tracking-[0.2em] text-[#94A3B8] font-normal">Design preview — no card is charged</span>
+              Payment <span className="text-[11px] font-body uppercase tracking-[0.2em] text-[#94A3B8] font-normal">Demo only</span>
             </h2>
+            <p className="text-sm text-[#94A3B8] mb-4">Use any 15 or 16 digit test number. No card is charged.</p>
             <div className="space-y-4 mt-4">
-              <div className="relative">
+              <label className="block space-y-2 relative">
+                <span className="text-xs uppercase tracking-[0.16em] text-[#94A3B8]">Card number</span>
                 <input
                   className={inputCls + ' pr-12'}
-                  placeholder="Card number"
+                  placeholder="1234 5678 9012 3456"
                   inputMode="numeric"
+                  autoComplete="cc-number"
+                  maxLength={19}
                   value={form.card}
-                  onChange={(e) =>
-                    setForm({ ...form, card: e.target.value.replace(/[^\d]/g, '').slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ') })
-                  }
+                  onChange={setCardNumber}
                 />
-                <Lock size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
-              </div>
+                <Lock size={16} className="absolute right-4 bottom-3.5 text-[#94A3B8]" />
+              </label>
               <div className="grid grid-cols-2 gap-4">
-                <input className={inputCls} placeholder="MM/YY" value={form.expiry} onChange={set('expiry')} inputMode="numeric" />
-                <input className={inputCls} placeholder="CVC" value={form.cvc} onChange={set('cvc')} inputMode="numeric" />
+                <label className="space-y-2">
+                  <span className="text-xs uppercase tracking-[0.16em] text-[#94A3B8]">Expiry</span>
+                  <input
+                    className={inputCls}
+                    placeholder="MM/YY"
+                    inputMode="numeric"
+                    autoComplete="cc-exp"
+                    maxLength={5}
+                    value={form.expiry}
+                    onChange={setExpiry}
+                  />
+                </label>
+                <label className="space-y-2">
+                  <span className="text-xs uppercase tracking-[0.16em] text-[#94A3B8]">Security code</span>
+                  <input
+                    className={inputCls}
+                    placeholder="CVC"
+                    inputMode="numeric"
+                    autoComplete="cc-csc"
+                    maxLength={4}
+                    value={form.cvc}
+                    onChange={(e) => setForm({ ...form, cvc: e.target.value.replace(/\D/g, '').slice(0, 4) })}
+                  />
+                </label>
               </div>
-              <input className={inputCls} placeholder="Country of residence" value={form.country} onChange={set('country')} />
+              <label className="block space-y-2">
+                <span className="text-xs uppercase tracking-[0.16em] text-[#94A3B8]">Billing country</span>
+                <input
+                  className={inputCls}
+                  placeholder="Country of residence"
+                  autoComplete="country-name"
+                  value={form.country}
+                  onChange={set('country')}
+                />
+              </label>
             </div>
 
             {error && <p className="mt-5 text-sm text-[#FF8A8A]">{error}</p>}

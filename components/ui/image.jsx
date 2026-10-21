@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 import * as React from "react"
 import { ResponsiveImage } from "./responsive-image"
 import {
@@ -30,6 +31,7 @@ const Image = React.forwardRef(
       focalPointY,
       quality = 90,
       onError,
+      alt = "",
       ...props
     },
     ref
@@ -59,6 +61,7 @@ const Image = React.forwardRef(
 
     const imageProps = {
       ...props,
+      alt,
       className: preview && preview.sourceClassName === props.className ? preview.className : props.className,
       onError: handleError,
     }
@@ -68,7 +71,7 @@ const Image = React.forwardRef(
       // click-to-edit toolbar keys its "Replace Image" action off the DOM
       // tag being `img`, so a placeholder div would be unrecoverable in the
       // editor. FALLBACK_IMAGE_URL doubles as the "no image chosen" graphic.
-      return <img ref={ref} src={FALLBACK_IMAGE_URL} {...imageProps} data-empty-image />
+      return <img ref={ref} src={FALLBACK_IMAGE_URL} alt={alt} {...imageProps} data-empty-image />
     }
 
     // A failed transform retries the underlying original as a plain image.
@@ -79,7 +82,7 @@ const Image = React.forwardRef(
       const isErrorMode = mode === IMAGE_LOAD_MODE.FALLBACK
       const imageSrc = isErrorMode ? FALLBACK_IMAGE_URL : getOriginalImageUrl(src, parsedSource)
       return (
-        <img ref={ref} src={imageSrc} {...imageProps} data-error-image={isErrorMode || undefined} />
+        <img ref={ref} src={imageSrc} alt={alt} {...imageProps} data-error-image={isErrorMode || undefined} />
       )
     }
 

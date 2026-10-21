@@ -6,13 +6,7 @@ import Reveal from '@/components/Reveal';
 import HotelCard from '@/components/HotelCard';
 import { hotels, regions, prettyDate } from '@/data/catalog';
 import { useCurrency } from '@/lib/CurrencyContext';
-
-const PRICE_BANDS = [
-  { id: 'any', label: (fmt) => 'Any price', test: () => true },
-  { id: 'under700', label: (fmt) => `Under ${fmt(700)}`, test: (p) => p < 700 },
-  { id: '700-1000', label: (fmt) => `${fmt(700)} – ${fmt(1000)}`, test: (p) => p >= 700 && p <= 1000 },
-  { id: 'over1000', label: (fmt) => `Over ${fmt(1000)}`, test: (p) => p > 1000 },
-];
+import { PRICE_BANDS } from '@/lib/bookingRules.mjs';
 
 const FEATURE_POOL = Array.from(new Set(hotels.flatMap((h) => h.features)));
 
@@ -79,7 +73,7 @@ export default function Hotels() {
               className="appearance-none bg-white/[0.05] border border-white/10 rounded-full text-sm text-[#F8FAFC] pl-4 pr-9 py-2 outline-none hover:border-white/25 cursor-pointer"
             >
               {PRICE_BANDS.map((b) => (
-                <option key={b.id} className="bg-[#111622]">{b.label(fmt)}</option>
+                <option key={b.id} value={b.id} className="bg-[#111622]">{b.label(fmt)}</option>
               ))}
             </select>
             <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#94A3B8] pointer-events-none" />

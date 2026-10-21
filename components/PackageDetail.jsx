@@ -9,6 +9,7 @@ import ActivityCard from '@/components/ActivityCard';
 import { getPackage, getHotel, getActivity, addNights, prettyDate } from '@/data/catalog';
 import { useBooking } from '@/lib/BookingContext';
 import { useCurrency } from '@/lib/CurrencyContext';
+import { packageBookingTotal } from '@/lib/bookingRules.mjs';
 
 export default function PackageDetail() {
   const { id } = useParams();
@@ -33,7 +34,7 @@ export default function PackageDetail() {
 
   const hotel = getHotel(pkg.hotelId);
   const acts = pkg.includedActivities.map(getActivity).filter(Boolean);
-  const total = pkg.pricePerPerson * guests;
+  const total = packageBookingTotal(pkg.pricePerPerson, guests);
   const canReserve = checkIn && checkIn >= new Date().toISOString().slice(0, 10);
 
   const reserve = () => {

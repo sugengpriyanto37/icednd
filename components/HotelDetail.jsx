@@ -10,6 +10,7 @@ import ActivityCard from '@/components/ActivityCard';
 import { hotels, activities, addNights, prettyDate } from '@/data/catalog';
 import { useBooking } from '@/lib/BookingContext';
 import { useCurrency } from '@/lib/CurrencyContext';
+import { hotelBookingTotal } from '@/lib/bookingRules.mjs';
 
 export default function HotelDetail() {
   const { id } = useParams();
@@ -38,10 +39,8 @@ export default function HotelDetail() {
     );
   }
 
-  const roomTotal = room.price * nights;
   const chosenActivities = hotelActivities.filter((a) => selected[a.id]);
-  const activitiesTotal = chosenActivities.reduce((sum, a) => sum + a.price * guests, 0);
-  const total = roomTotal + activitiesTotal;
+  const total = hotelBookingTotal(room.price, nights, chosenActivities, guests);
   const canReserve = checkIn && checkIn >= new Date().toISOString().slice(0, 10);
 
   const reserve = () => {
@@ -78,10 +77,10 @@ export default function HotelDetail() {
           <div className="mt-10">
             <p className="text-[11px] uppercase tracking-[0.3em] text-[#7EE8FA]">{hotel.location}</p>
             <h1 className="font-display font-light text-4xl sm:text-6xl mt-3">{hotel.name}</h1>
-            <p className="text-[#94A3B8] mt-2 flex items-center gap-3">
+            <div className="text-[#94A3B8] mt-2 flex items-center gap-3">
               <span>Guest rating {hotel.rating} / 5</span>
               <LumeRating level={hotel.lume} />
-            </p>
+            </div>
             <p className="mt-6 text-lg leading-relaxed text-[#F8FAFC]/90 max-w-2xl">{hotel.description}</p>
 
             <div className="mt-10 grid sm:grid-cols-2 gap-x-8 gap-y-3">
@@ -175,7 +174,7 @@ export default function HotelDetail() {
 
               <div className="border-t border-white/10 pt-5 space-y-2.5 text-sm">
                 <p className="flex justify-between text-[#94A3B8]">
-                  <span>{room.name} × {nights}</span><span className="text-[#F8FAFC]">{fmt(roomTotal)}</span>
+                  <span>{room.name} × {nights}</span><span className="text-[#F8FAFC]">{fmt(room.price * nights)}</span>
                 </p>
                 {chosenActivities.map((a) => (
                   <p key={a.id} className="flex justify-between text-[#94A3B8]">
