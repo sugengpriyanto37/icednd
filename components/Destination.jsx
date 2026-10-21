@@ -120,10 +120,10 @@ export default function Destination() {
             The sky is waiting. <span className="italic text-[#4DFFB5]">Begin planning.</span>
           </h2>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link href="/hotels" className="px-8 py-3.5 rounded-full bg-[#4DFFB5] text-[#080B12] text-sm font-semibold hover:bg-[#7EE8FA] transition-colors">
+            <Link href="/hotels" className="px-8 py-3.5 rounded-md bg-[#4DFFB5] text-[#080B12] text-sm font-semibold hover:bg-[#7EE8FA] transition-colors">
               Browse the Hotels
             </Link>
-            <Link href="/packages" className="px-8 py-3.5 rounded-full border border-white/20 text-sm hover:border-[#4DFFB5] hover:text-[#4DFFB5] transition-colors">
+            <Link href="/packages" className="px-8 py-3.5 rounded-md border border-white/20 text-sm hover:border-[#4DFFB5] hover:text-[#4DFFB5] transition-colors">
               View Curated Packages
             </Link>
           </div>

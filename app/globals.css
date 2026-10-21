@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Compact surface language: restrained corners keep the interface editorial and credible. */
+.rounded-3xl { border-radius: 0.875rem !important; }
+.rounded-2xl { border-radius: 0.75rem !important; }
+.rounded-xl { border-radius: 0.5rem !important; }
+
+/* Compact surface language: restrained corners keep the interface editorial and credible. */
+.rounded-3xl { border-radius: 0.875rem !important; }
+.rounded-2xl { border-radius: 0.75rem !important; }
+.rounded-xl { border-radius: 0.5rem !important; }
+
 @theme inline {
   --font-display: var(--font-heading);
   --font-heading: var(--font-heading);

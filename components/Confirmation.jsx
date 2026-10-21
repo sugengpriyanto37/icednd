@@ -84,10 +84,10 @@ export default function Confirmation() {
         </div>
 
         <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <Link href="/" className="px-8 py-3.5 rounded-full bg-[#4DFFB5] text-[#080B12] text-sm font-semibold hover:bg-[#7EE8FA] transition-colors">
+          <Link href="/" className="px-8 py-3.5 rounded-md bg-[#4DFFB5] text-[#080B12] text-sm font-semibold hover:bg-[#7EE8FA] transition-colors">
             Back to Home
           </Link>
-          <Link href="/destination" className="px-8 py-3.5 rounded-full border border-white/20 text-sm hover:border-[#4DFFB5] hover:text-[#4DFFB5] transition-colors">
+          <Link href="/destination" className="px-8 py-3.5 rounded-md border border-white/20 text-sm hover:border-[#4DFFB5] hover:text-[#4DFFB5] transition-colors">
             Prepare for the Arctic
           </Link>
         </div>

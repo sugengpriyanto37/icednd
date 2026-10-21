@@ -9,7 +9,7 @@ export default function Error({ reset }: { reset: () => void }) {
         <button
           type="button"
           onClick={() => reset()}
-          className="mt-8 rounded-full bg-[#4DFFB5] px-6 py-3 text-sm font-semibold text-[#080B12]"
+          className="mt-8 rounded-md bg-[#4DFFB5] px-6 py-3 text-sm font-semibold text-[#080B12]"
         >
           Try again
         </button>

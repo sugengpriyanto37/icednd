@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
 import CurrencySwitcher from './CurrencySwitcher';
+import Brand from './Brand';
 import { useState } from 'react';
 
 const NAV = [
@@ -17,8 +18,8 @@ export default function Layout({ children }) {
     <div className="min-h-screen bg-[#080B12] text-[#F8FAFC]">
       <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-[#080B12]/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-display text-xl tracking-[0.08em]">
-            Ice<span className="italic text-[#4DFFB5]">DnD</span>
+          <Link href="/" aria-label="IceDnD home">
+            <Brand />
           </Link>
           <nav className="hidden md:flex items-center gap-10">
             {NAV.map((item) => (
@@ -33,7 +34,7 @@ export default function Layout({ children }) {
             <CurrencySwitcher />
             <Link
               href="/hotels"
-              className="text-sm font-medium px-5 py-2 rounded-full bg-[#4DFFB5] text-[#080B12] hover:bg-[#7EE8FA] transition-colors"
+              className="text-sm font-medium px-5 py-2 rounded-md bg-[#4DFFB5] text-[#080B12] hover:bg-[#7EE8FA] transition-colors"
             >
               Book a Stay
             </Link>
@@ -62,7 +63,7 @@ export default function Layout({ children }) {
             <Link
               href="/hotels"
               onClick={() => setOpen(false)}
-              className="text-sm font-medium px-5 py-2.5 rounded-full bg-[#4DFFB5] text-[#080B12] text-center"
+              className="text-sm font-medium px-5 py-2.5 rounded-md bg-[#4DFFB5] text-[#080B12] text-center"
             >
               Book a Stay
             </Link>
@@ -77,9 +78,7 @@ export default function Layout({ children }) {
       <footer className="border-t border-white/[0.06] mt-24">
         <div className="max-w-7xl mx-auto px-6 py-14 grid gap-10 md:grid-cols-3">
           <div>
-            <p className="font-display text-2xl">
-              Ice<span className="italic text-[#4DFFB5]">DnD</span>
-            </p>
+            <Brand large />
             <p className="text-sm text-[#94A3B8] mt-3 max-w-xs leading-relaxed">
               Luxury winter stays and polar night journeys across the Norwegian Arctic, curated for
               international guests.

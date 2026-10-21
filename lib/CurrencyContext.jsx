@@ -11,7 +11,7 @@ const CURRENCIES = {
 const CurrencyContext = createContext(null);
 
 export function CurrencyProvider({ children }) {
-  const [code, setCode] = useState('NOK');
+  const [code, setCode] = useState('USD');
 
   const value = useMemo(() => {
     const currency = CURRENCIES[code] || CURRENCIES.NOK;
