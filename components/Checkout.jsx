@@ -86,14 +86,14 @@ export default function Checkout() {
     'w-full bg-white/[0.05] border border-white/10 rounded-xl px-4 py-3 text-sm text-[#F8FAFC] placeholder-[#94A3B8] outline-none focus:border-[#4DFFB5]/60 transition-colors';
 
   return (
-    <div className="min-h-screen bg-[#080B12] text-[#F8FAFC] py-14 px-6">
+    <div className="min-h-screen bg-[#080B12] text-[#F8FAFC] py-10 sm:py-14 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <p className="text-[11px] uppercase tracking-[0.35em] text-[#7EE8FA]">The Final Ascent</p>
           <h1 className="font-display font-light text-4xl sm:text-5xl mt-3">Secure your journey</h1>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-start">
+        <div className="grid min-w-0 lg:grid-cols-[minmax(0,1fr)_400px] gap-8 sm:gap-12 items-start">
           {/* Payment */}
           <form onSubmit={submit} className="rounded-3xl border border-white/10 bg-[#111622] p-6 sm:p-8">
             <h2 className="font-display text-2xl mb-6">Your details</h2>
@@ -139,7 +139,7 @@ export default function Checkout() {
                 />
                 <Lock size={16} className="absolute right-4 bottom-3.5 text-[#94A3B8]" />
               </label>
-              <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <label className="space-y-2">
                   <span className="text-xs uppercase tracking-[0.16em] text-[#94A3B8]">Expiry</span>
                   <input
@@ -186,7 +186,7 @@ export default function Checkout() {
             >
               {processing ? 'Confirming your journey…' : 'Book Your Journey'}
             </button>
-            <p className="flex items-center justify-center gap-2 text-xs text-[#94A3B8] mt-4">
+            <p className="flex flex-wrap items-center justify-center gap-2 text-xs text-[#94A3B8] mt-4 text-center">
               <ShieldCheck size={14} /> Encrypted checkout · Free cancellation up to 30 days before arrival
             </p>
           </form>

@@ -37,9 +37,9 @@ export default function Hotels() {
 
   return (
     <div className="pb-16">
-      <div className="max-w-7xl mx-auto px-6 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-8">
         <p className="text-[11px] uppercase tracking-[0.3em] text-[#7EE8FA]">The Observatory</p>
-        <h1 className="font-display font-light text-4xl sm:text-6xl mt-3">Choose where the sky performs</h1>
+        <h1 className="font-display font-light text-4xl sm:text-6xl mt-3 max-w-4xl">Choose where the sky performs</h1>
         <p className="text-[#94A3B8] mt-4 max-w-2xl leading-relaxed">
           Five independently owned addresses across the Norwegian Arctic, each rated on the Lume scale —
           the darkness of its sky and its historical aurora visibility.
@@ -48,7 +48,7 @@ export default function Hotels() {
 
       {/* Lens settings */}
       <div className="md:sticky md:top-16 z-30 border-y border-white/[0.06] bg-[#080B12]/95 md:bg-[#080B12]/85 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 py-3.5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5">
           <div className="flex items-center gap-3 md:hidden">
             <button
               type="button"
@@ -68,7 +68,7 @@ export default function Hotels() {
             </span>
           </div>
 
-          <div className={`${filtersOpen ? 'flex' : 'hidden'} md:flex flex-wrap items-center gap-3 mt-4 pt-4 border-t border-white/[0.06] md:mt-0 md:pt-0 md:border-t-0`}>
+          <div className={`${filtersOpen ? 'flex' : 'hidden'} md:flex min-w-0 flex-wrap items-center gap-3 mt-4 pt-4 border-t border-white/[0.06] md:mt-0 md:pt-0 md:border-t-0`}>
           {travelDate && (
             <span className="text-xs text-[#4DFFB5] border border-[#4DFFB5]/40 rounded-full px-3 py-1.5">
               Travelling around {prettyDate(travelDate)}
@@ -127,7 +127,7 @@ export default function Hotels() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 pt-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 sm:pt-12">
         {filtered.length === 0 ? (
           <div className="py-24 text-center">
             <p className="font-display text-2xl text-[#94A3B8]">No hotels match these lens settings.</p>

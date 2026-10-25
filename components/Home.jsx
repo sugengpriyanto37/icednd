@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative h-[92vh] min-h-[600px] overflow-hidden">
+      <section className="relative min-h-[600px] overflow-hidden sm:h-[92vh]">
         <Image
           src={IMG_HERO}
           alt="Glass igloo beneath the aurora borealis"
@@ -36,7 +36,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#080B12]/60 via-[#080B12]/20 to-[#080B12]" />
 
-        <div className="relative z-10 flex flex-col items-center justify-center h-[70%] text-center px-6">
+        <div className="relative z-10 flex min-h-[390px] flex-col items-center justify-center text-center px-4 sm:h-[70%] sm:min-h-0 sm:px-6">
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.35em] text-[#7EE8FA]">
               Norway · The Polar Night Season
@@ -58,8 +58,8 @@ export default function Home() {
               onSubmit={search}
               className="max-w-3xl mx-auto rounded-2xl border border-white/15 bg-[#111622]/80 backdrop-blur-xl p-2.5 flex flex-col sm:flex-row gap-2.5"
             >
-              <label className="flex-1 flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] transition-colors">
-                <span className="text-xs text-[#94A3B8] whitespace-nowrap">When the lights dance</span>
+              <label className="flex-1 min-w-0 flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] transition-colors">
+                <span className="w-full sm:w-auto text-xs text-[#94A3B8] whitespace-nowrap">When the lights dance</span>
                 <input
                   type="date"
                   value={date}
@@ -67,8 +67,8 @@ export default function Home() {
                   className="bg-transparent text-sm text-[#F8FAFC] w-full outline-none [color-scheme:dark]"
                 />
               </label>
-              <label className="flex-1 flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] transition-colors relative">
-                <span className="text-xs text-[#94A3B8] whitespace-nowrap">Where you’ll watch</span>
+              <label className="flex-1 min-w-0 flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] transition-colors relative">
+                <span className="w-full sm:w-auto text-xs text-[#94A3B8] whitespace-nowrap">Where you’ll watch</span>
                 <select
                   value={region}
                   onChange={(e) => setRegion(e.target.value)}
@@ -93,7 +93,7 @@ export default function Home() {
       </section>
 
       {/* Statement */}
-      <section className="max-w-4xl mx-auto px-6 py-28 text-center">
+      <section className="max-w-4xl mx-auto px-4 py-20 sm:px-6 sm:py-28 text-center">
         <Reveal>
           <h2 className="font-display font-light text-3xl sm:text-5xl leading-[1.2]">
             From late November the sun never rises above the Arctic Circle —
@@ -117,12 +117,12 @@ export default function Home() {
       </section>
 
       {/* Featured hotels */}
-      <section className="max-w-7xl mx-auto px-6 pb-28">
+      <section className="max-w-7xl mx-auto px-4 pb-20 sm:px-6 sm:pb-28">
         <Reveal>
-          <div className="flex items-end justify-between mb-10">
+          <div className="flex items-end justify-between gap-4 mb-8 sm:mb-10">
             <div>
               <p className="text-[11px] uppercase tracking-[0.3em] text-[#7EE8FA]">The Observatory</p>
-              <h2 className="font-display font-light text-4xl sm:text-5xl mt-3">Houses of the long dark</h2>
+              <h2 className="font-display font-light text-3xl sm:text-5xl mt-3">Houses of the long dark</h2>
             </div>
             <Link href="/hotels" className="hidden sm:flex items-center gap-2 text-sm text-[#4DFFB5] hover:text-[#7EE8FA]">
               All five hotels <ArrowRight size={16} />
@@ -139,12 +139,12 @@ export default function Home() {
       </section>
 
       {/* Packages */}
-      <section className="max-w-7xl mx-auto px-6 pb-28">
+      <section className="max-w-7xl mx-auto px-4 pb-20 sm:px-6 sm:pb-28">
         <Reveal>
-          <div className="flex items-end justify-between mb-10">
+          <div className="flex items-end justify-between gap-4 mb-8 sm:mb-10">
             <div>
               <p className="text-[11px] uppercase tracking-[0.3em] text-[#7EE8FA]">Signature Journeys</p>
-              <h2 className="font-display font-light text-4xl sm:text-5xl mt-3">Curated packages</h2>
+              <h2 className="font-display font-light text-3xl sm:text-5xl mt-3">Curated packages</h2>
             </div>
             <Link href="/packages" className="hidden sm:flex items-center gap-2 text-sm text-[#4DFFB5] hover:text-[#7EE8FA]">
               All packages <ArrowRight size={16} />
@@ -183,8 +183,8 @@ export default function Home() {
       </section>
 
       {/* Experience band */}
-      <section className="max-w-7xl mx-auto px-6 pb-28">
-        <div className="grid md:grid-cols-2 gap-12 items-center rounded-3xl bg-[#111622] p-6 sm:p-12">
+      <section className="max-w-7xl mx-auto px-4 pb-20 sm:px-6 sm:pb-28">
+        <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center rounded-3xl bg-[#111622] p-5 sm:p-12">
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.3em] text-[#7EE8FA]">Beyond the Room Key</p>
             <h2 className="font-display font-light text-4xl sm:text-5xl mt-4 leading-tight">

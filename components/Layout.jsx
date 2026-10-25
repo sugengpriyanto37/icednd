@@ -17,7 +17,7 @@ export default function Layout({ children }) {
   return (
     <div className="min-h-screen bg-[#080B12] text-[#F8FAFC]">
       <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-[#080B12]/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href="/" aria-label="IceDnD home">
             <Brand />
           </Link>
@@ -76,7 +76,7 @@ export default function Layout({ children }) {
       </main>
 
       <footer className="border-t border-white/[0.06] mt-24">
-        <div className="max-w-7xl mx-auto px-6 py-14 grid gap-10 md:grid-cols-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-14 grid gap-10 md:grid-cols-3">
           <div>
             <Brand large />
             <p className="text-sm text-[#94A3B8] mt-3 max-w-xs leading-relaxed">
@@ -99,7 +99,7 @@ export default function Layout({ children }) {
             <p className="text-xs text-[#94A3B8] mt-4">Prices shown in your selected currency — indicative rates, charged in NOK. Payment on this site is a design preview — no card is charged.</p>
           </div>
         </div>
-        <div className="border-t border-white/[0.06] py-5 px-6 text-center text-xs text-[#94A3B8]">
+        <div className="border-t border-white/[0.06] py-5 px-4 sm:px-6 text-center text-xs text-[#94A3B8]">
           © 2026 IceDnD. Tromsø · Lofoten · Svalbard · Alta · Narvik.
         </div>
       </footer>

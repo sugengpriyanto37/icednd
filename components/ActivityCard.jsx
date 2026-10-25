@@ -9,19 +9,19 @@ export default function ActivityCard({ activity, selected = false, onToggle, inc
   return (
     <div
       onClick={interactive ? () => onToggle(activity.id) : undefined}
-      className={`rounded-2xl border p-3 flex gap-4 items-center transition-colors duration-300 ${
+      className={`w-full max-w-full rounded-2xl border p-3 flex gap-3 sm:gap-4 items-center transition-colors duration-300 min-w-0 overflow-hidden ${
         selected
           ? 'border-[#4DFFB5]/60 bg-[#4DFFB5]/[0.06]'
           : 'border-white/10 bg-white/[0.03] hover:border-white/25'
       } ${interactive ? 'cursor-pointer' : ''}`}
     >
-      <div className="w-20 h-20 sm:w-24 sm:h-20 rounded-xl overflow-hidden shrink-0">
+      <div className="w-14 h-14 sm:w-24 sm:h-20 rounded-xl overflow-hidden shrink-0">
         <Image src={activity.image} alt={activity.name} className="h-full w-full object-cover" />
       </div>
       <div className="flex-1 min-w-0">
         <h4 className="text-[#F8FAFC] font-medium text-sm sm:text-base truncate">{activity.name}</h4>
         <p className="text-xs text-[#94A3B8] mt-1">{activity.duration}</p>
-        <p className="text-sm text-[#F8FAFC] mt-1.5">
+        <p className="text-sm text-[#F8FAFC] mt-1.5 break-words">
           <span className="font-medium">{fmt(activity.price)}</span>
           <span className="text-[#94A3B8]"> · {activity.unit}</span>
         </p>

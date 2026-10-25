@@ -59,7 +59,7 @@ export default function PackageDetail() {
         <Image src={pkg.image} alt={pkg.name} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080B12] via-[#080B12]/30 to-[#080B12]/50" />
         <div className="absolute inset-x-0 bottom-0">
-          <div className="max-w-7xl mx-auto px-6 pb-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-8 sm:pb-10">
             <Link href="/packages" className="flex items-center gap-2 text-sm text-[#94A3B8] hover:text-[#4DFFB5] mb-5">
               <ArrowLeft size={16} /> All packages
             </Link>
@@ -71,13 +71,13 @@ export default function PackageDetail() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 mt-14 grid lg:grid-cols-[1fr_420px] gap-12 items-start">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-10 sm:mt-14 grid min-w-0 lg:grid-cols-[minmax(0,1fr)_420px] gap-8 sm:gap-12 items-start">
         <div>
           <p className="text-lg leading-relaxed text-[#F8FAFC]/90 max-w-2xl">{pkg.summary}</p>
 
           <h2 className="font-display text-3xl mt-12 mb-6">What’s included</h2>
           <div className="space-y-3">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 flex items-center justify-between">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 flex items-start gap-4 justify-between">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.2em] text-[#94A3B8]">Accommodation</p>
                 <p className="text-[#F8FAFC] mt-1">{hotel.name}, {pkg.nights} nights · {hotel.location}</p>

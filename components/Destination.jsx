@@ -27,7 +27,7 @@ export default function Destination() {
       <section className="relative h-[60vh] min-h-[420px] overflow-hidden">
         <Image src={IMG_POLAR_NIGHT} alt="The polar night" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080B12] via-[#080B12]/30 to-[#080B12]/50" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex flex-col justify-end pb-12">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 h-full flex flex-col justify-end pb-10 sm:pb-12">
           <p className="text-[11px] uppercase tracking-[0.3em] text-[#7EE8FA]">The Arctic, Explained</p>
           <h1 className="font-display font-light text-4xl sm:text-6xl mt-3 max-w-3xl leading-tight">
             A season with no sunrise, and a sky that answers.
@@ -36,7 +36,7 @@ export default function Destination() {
       </section>
 
       {/* Aurora season */}
-      <section className="max-w-6xl mx-auto px-6 pt-24">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24">
         <Reveal>
           <p className="text-[11px] uppercase tracking-[0.3em] text-[#7EE8FA]">The Aurora Season</p>
           <h2 className="font-display font-light text-3xl sm:text-5xl mt-3">When to come for the lights</h2>
@@ -46,7 +46,7 @@ export default function Destination() {
             offer the most hours of darkness, and statistically the best odds.
           </p>
         </Reveal>
-        <div className="mt-10 grid grid-cols-7 gap-2 sm:gap-4">
+        <div className="mt-10 grid grid-cols-4 sm:grid-cols-7 gap-x-3 gap-y-6 sm:gap-4">
           {MONTHS.map((mo, i) => (
             <Reveal key={mo.m} delay={i * 0.06}>
               <div className="text-center">
@@ -65,7 +65,7 @@ export default function Destination() {
       </section>
 
       {/* Polar night */}
-      <section className="max-w-6xl mx-auto px-6 pt-24 grid md:grid-cols-2 gap-12 items-center">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
         <Reveal>
           <div className="rounded-3xl overflow-hidden aspect-[4/3]">
             <Image src={IMG_AURORA_HUNT} alt="Watching the aurora" className="h-full w-full object-cover" />
@@ -85,7 +85,7 @@ export default function Destination() {
               ['Alta & Narvik', 'Late Nov – mid Jan · no sunrise'],
               ['Svalbard, 78°N', 'Oct 26 – Feb 16 · the longest dark'],
             ].map(([place, detail]) => (
-              <div key={place} className="flex items-baseline justify-between border-b border-white/10 pb-3">
+              <div key={place} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-white/10 pb-3">
                 <p className="text-[#F8FAFC]">{place}</p>
                 <p className="text-xs text-[#94A3B8] text-right">{detail}</p>
               </div>
@@ -95,7 +95,7 @@ export default function Destination() {
       </section>
 
       {/* Practical info */}
-      <section className="max-w-6xl mx-auto px-6 pt-24">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24">
         <Reveal>
           <p className="text-[11px] uppercase tracking-[0.3em] text-[#7EE8FA]">Practical Notes</p>
           <h2 className="font-display font-light text-3xl sm:text-5xl mt-3">For visitors from abroad</h2>
@@ -114,7 +114,7 @@ export default function Destination() {
       </section>
 
       {/* CTA */}
-      <section className="max-w-6xl mx-auto px-6 pt-24 text-center">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 text-center">
         <Reveal>
           <h2 className="font-display font-light text-3xl sm:text-5xl">
             The sky is waiting. <span className="italic text-[#4DFFB5]">Begin planning.</span>

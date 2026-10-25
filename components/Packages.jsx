@@ -10,7 +10,7 @@ import { useCurrency } from '@/lib/CurrencyContext';
 export default function Packages() {
   const { fmt } = useCurrency();
   return (
-    <div className="max-w-6xl mx-auto px-6 pt-16 pb-16">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-16">
       <p className="text-[11px] uppercase tracking-[0.3em] text-[#7EE8FA]">Signature Journeys</p>
       <h1 className="font-display font-light text-4xl sm:text-6xl mt-3">Curated packages</h1>
       <p className="text-[#94A3B8] mt-4 max-w-2xl leading-relaxed">
@@ -47,7 +47,7 @@ export default function Packages() {
                       </p>
                     ))}
                   </div>
-                  <div className="mt-8 flex items-center gap-6">
+                  <div className="mt-8 flex flex-col items-start sm:flex-row sm:items-center gap-4 sm:gap-6">
                     <p className="text-lg">
                       <span className="text-[#94A3B8] text-sm">from </span>
                       <span className="font-medium">{fmt(pkg.pricePerPerson)}</span>

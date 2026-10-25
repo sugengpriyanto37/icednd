@@ -98,6 +98,7 @@
 
 @layer base {
   * {
+    box-sizing: border-box;
     border-color: hsl(var(--border));
     outline-color: hsl(var(--ring) / 0.5);
   }
@@ -106,7 +107,20 @@
     background: hsl(var(--background));
     color: hsl(var(--foreground));
     font-family: var(--font-body);
+    overflow-x: hidden;
+    width: 100%;
   }
+
+  html { overflow-x: hidden; }
+  main { min-width: 0; }
+
+  img, svg, video, canvas { max-width: 100%; }
+}
+
+@media (max-width: 639px) {
+  /* Keep the dense editorial layout readable on narrow phones. */
+  .tracking-\[0\.35em\] { letter-spacing: 0.2em; }
+  .tracking-\[0\.3em\] { letter-spacing: 0.2em; }
 }
 
 @property --aurora-angle {

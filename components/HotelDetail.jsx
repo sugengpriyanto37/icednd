@@ -59,25 +59,68 @@ export default function HotelDetail() {
   };
 
   return (
-    <div className="pb-24">
-      <div className="max-w-7xl mx-auto px-6 pt-10">
+    <div className="hotel-detail-page w-full min-w-0 max-w-full overflow-x-hidden pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10">
         <Link href="/hotels" className="flex items-center gap-2 text-sm text-[#94A3B8] hover:text-[#4DFFB5] transition-colors">
           <ArrowLeft size={16} /> All hotels
         </Link>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 mt-8 grid lg:grid-cols-[1fr_420px] gap-12 items-start">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 mt-8 grid min-w-0 lg:grid-cols-[minmax(0,1fr)_420px] gap-8 sm:gap-12 items-start">
         {/* Gallery & story */}
-        <div>
+        <div className="w-full min-w-0">
           <Reveal>
             <div className="rounded-3xl overflow-hidden aspect-[16/10]">
               <Image src={hotel.image} alt={hotel.name} className="h-full w-full object-cover" />
             </div>
           </Reveal>
-          <div className="mt-10">
+          <div className="lg:hidden mt-8 rounded-3xl border border-white/10 bg-[#111622] p-5 sm:p-6">
+            <h3 className="font-display text-2xl">Build your journey</h3>
+            <div className="mt-6 space-y-5">
+              <div>
+                <label className="text-xs uppercase tracking-[0.2em] text-[#94A3B8]">Check-in</label>
+                <input
+                  type="date"
+                  value={checkIn}
+                  onChange={(e) => setCheckIn(e.target.value)}
+                  className="mt-2 w-full bg-white/[0.05] border border-white/10 rounded-xl px-4 py-3 text-sm text-[#F8FAFC] outline-none focus:border-[#4DFFB5]/60 [color-scheme:dark]"
+                />
+              </div>
+              <div className="grid grid-cols-1 gap-3">
+                <div>
+                  <label className="text-xs uppercase tracking-[0.2em] text-[#94A3B8]">Nights</label>
+                  <div className="mt-2 flex items-center justify-between border border-white/10 rounded-xl px-1 py-1.5">
+                    <button onClick={() => setNights(Math.max(1, nights - 1))} className="p-2 text-[#94A3B8] hover:text-[#4DFFB5]" aria-label="Fewer nights"><Minus size={14} /></button>
+                    <span className="text-sm">{nights}</span>
+                    <button onClick={() => setNights(Math.min(14, nights + 1))} className="p-2 text-[#94A3B8] hover:text-[#4DFFB5]" aria-label="More nights"><Plus size={14} /></button>
+                  </div>
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-[0.2em] text-[#94A3B8]">Guests</label>
+                  <div className="mt-2 flex items-center justify-between border border-white/10 rounded-xl px-1 py-1.5">
+                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="p-2 text-[#94A3B8] hover:text-[#4DFFB5]" aria-label="Fewer guests"><Minus size={14} /></button>
+                    <span className="text-sm">{guests}</span>
+                    <button onClick={() => setGuests(Math.min(room.capacity, guests + 1))} className="p-2 text-[#94A3B8] hover:text-[#4DFFB5]" aria-label="More guests"><Plus size={14} /></button>
+                  </div>
+                </div>
+              </div>
+              <div className="border-t border-white/10 pt-4 space-y-2 text-sm">
+                <p className="flex justify-between gap-4 text-[#94A3B8]"><span className="min-w-0 truncate">{room.name} × {nights}</span><span className="shrink-0 text-[#F8FAFC]">{fmt(room.price * nights)}</span></p>
+                <p className="flex justify-between gap-4 border-t border-white/10 pt-3"><span className="font-display">Total</span><span className="shrink-0 font-medium text-[#4DFFB5]">{fmt(total)}</span></p>
+              </div>
+              <button
+                onClick={reserve}
+                disabled={!canReserve}
+                className="w-full py-4 rounded-xl bg-[#4DFFB5] text-[#080B12] text-sm font-semibold hover:bg-[#7EE8FA] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {canReserve ? 'Reserve & Pay' : 'Select a check-in date'}
+              </button>
+            </div>
+          </div>
+          <div className="mt-10 min-w-0 max-w-full">
             <p className="text-[11px] uppercase tracking-[0.3em] text-[#7EE8FA]">{hotel.location}</p>
-            <h1 className="font-display font-light text-4xl sm:text-6xl mt-3">{hotel.name}</h1>
-            <div className="text-[#94A3B8] mt-2 flex items-center gap-3">
+            <h1 className="font-display font-light text-3xl sm:text-6xl mt-3 break-words">{hotel.name}</h1>
+            <div className="text-[#94A3B8] mt-2 flex flex-wrap items-center gap-3">
               <span>Guest rating {hotel.rating} / 5</span>
               <LumeRating level={hotel.lume} />
             </div>
@@ -91,7 +134,7 @@ export default function HotelDetail() {
               ))}
             </div>
 
-            <div className="mt-10 rounded-2xl border border-[#4DFFB5]/25 bg-[#4DFFB5]/[0.05] p-6">
+            <div className="mt-10 min-w-0 max-w-full rounded-2xl border border-[#4DFFB5]/25 bg-[#4DFFB5]/[0.05] p-5 sm:p-6">
               <p className="text-[11px] uppercase tracking-[0.25em] text-[#4DFFB5]">The darkness here</p>
               <p className="mt-3 text-sm leading-relaxed text-[#F8FAFC]/90">{hotel.auroraNotes}</p>
             </div>
@@ -108,8 +151,8 @@ export default function HotelDetail() {
                   onClick={() => setRoomId(r.id)}
                 >
                   <p className="text-[11px] uppercase tracking-[0.2em] text-[#94A3B8]">Sleeps {r.capacity}</p>
-                  <p className="font-display text-xl mt-2">{r.name}</p>
-                  <p className="text-xs text-[#94A3B8] mt-1">{r.view}</p>
+                  <p className="font-display text-xl mt-2 break-words">{r.name}</p>
+                  <p className="text-xs text-[#94A3B8] mt-1 break-words">{r.view}</p>
                   <p className="text-sm mt-4"><span className="font-medium">{fmt(r.price)}</span><span className="text-[#94A3B8]"> / night</span></p>
                 </div>
               ))}
@@ -132,7 +175,7 @@ export default function HotelDetail() {
         </div>
 
         {/* Journey builder */}
-        <div className="lg:sticky lg:top-24">
+        <div className="hidden min-w-0 lg:block lg:sticky lg:top-24">
           <div className="rounded-3xl border border-white/10 bg-[#111622] p-6">
             <h3 className="font-display text-2xl">Build your journey</h3>
 
@@ -152,7 +195,7 @@ export default function HotelDetail() {
                 )}
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs uppercase tracking-[0.2em] text-[#94A3B8]">Nights</label>
                   <div className="mt-2 flex items-center justify-between border border-white/10 rounded-xl px-2 py-1.5">
