@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ChevronDown, X } from 'lucide-react';
+import { ChevronDown, SlidersHorizontal, X } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import HotelCard from '@/components/HotelCard';
 import { hotels, regions, prettyDate } from '@/data/catalog';
@@ -16,6 +16,7 @@ export default function Hotels() {
   const [region, setRegion] = useState(searchParams.get('region') || 'Anywhere');
   const [priceBand, setPriceBand] = useState('any');
   const [features, setFeatures] = useState([]);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const travelDate = searchParams.get('date');
 
@@ -46,8 +47,28 @@ export default function Hotels() {
       </div>
 
       {/* Lens settings */}
-      <div className="sticky top-16 z-30 border-y border-white/[0.06] bg-[#080B12]/85 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 py-3.5 flex flex-wrap items-center gap-3">
+      <div className="md:sticky md:top-16 z-30 border-y border-white/[0.06] bg-[#080B12]/95 md:bg-[#080B12]/85 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-6 py-3.5">
+          <div className="flex items-center gap-3 md:hidden">
+            <button
+              type="button"
+              onClick={() => setFiltersOpen((open) => !open)}
+              aria-expanded={filtersOpen}
+              className="flex items-center gap-2 text-sm text-[#F8FAFC]"
+            >
+              <SlidersHorizontal size={16} className="text-[#4DFFB5]" />
+              Filters
+              {hasFilters && (
+                <span className="rounded-full bg-[#4DFFB5]/10 px-2 py-0.5 text-xs text-[#4DFFB5]">Active</span>
+              )}
+              <ChevronDown size={15} className={`text-[#94A3B8] transition-transform ${filtersOpen ? 'rotate-180' : ''}`} />
+            </button>
+            <span className="ml-auto text-xs text-[#94A3B8]">
+              {filtered.length} {filtered.length === 1 ? 'hotel' : 'hotels'}
+            </span>
+          </div>
+
+          <div className={`${filtersOpen ? 'flex' : 'hidden'} md:flex flex-wrap items-center gap-3 mt-4 pt-4 border-t border-white/[0.06] md:mt-0 md:pt-0 md:border-t-0`}>
           {travelDate && (
             <span className="text-xs text-[#4DFFB5] border border-[#4DFFB5]/40 rounded-full px-3 py-1.5">
               Travelling around {prettyDate(travelDate)}
@@ -102,6 +123,7 @@ export default function Hotels() {
           <span className="ml-auto text-xs text-[#94A3B8]">
             {filtered.length} {filtered.length === 1 ? 'hotel' : 'hotels'}
           </span>
+          </div>
         </div>
       </div>
 
